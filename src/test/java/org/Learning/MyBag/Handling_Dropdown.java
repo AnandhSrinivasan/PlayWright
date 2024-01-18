@@ -1,5 +1,7 @@
 package org.Learning.MyBag;
 
+import java.util.List;
+
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Locator;
@@ -30,8 +32,20 @@ public class Handling_Dropdown {
 		//textContent is like getText method 
 		System.out.println(text);
 		
-		Locator superHero = page.locator("//select[@id='superheros']");
-		superHero.selectOption(new String[] {"aq", "bt", "xm"});					
+		/*
+		 * Locator superHero = page.locator("//div[@class='select is-multiple']");
+		 * superHero.selectOption(new String[] {"aq", "bt", "xm"});
+		 */					
+		
+		Locator prgln = page.locator("//select[@id='lang']");
+		Locator options = prgln.locator("option");
+		int values= options.count();
+		System.out.println("Length :" + values);
+		prgln.selectOption(new SelectOption().setIndex(values-1));
+
+		//Print all the dropdown values in the web page
+		List<String> all = options.allInnerTexts(); 
+		all.forEach(i->System.out.println(i));
 	}
 
 }
